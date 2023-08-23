@@ -79,7 +79,7 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
 
 }
 
-@Preview(showBackground = true)
+@Preview(showSystemUi = true, device = "id:pixel_3a")
 @Composable
 fun GreetingPreview6() {
     JetpackComposeDemosTheme {

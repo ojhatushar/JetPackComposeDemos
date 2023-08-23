@@ -161,8 +161,8 @@ fun WidgetBoxDemo() {
 @Preview(showSystemUi = true, device = "id:pixel_3a")
 @Composable
 fun RowPreview() {
-   //  WidgetRowDemo()
-   WidgetColumnDemo()
+     WidgetRowDemo()
+  // WidgetColumnDemo()
     // WidgetBoxDemo()
 }
 

@@ -13,8 +13,68 @@
         android:theme="@style/Theme.JetpackComposeDemos"
         tools:targetApi="31">
         <activity
+            android:name=".unit3.MaterialThemeDemo"
+            android:exported="true"
+            android:label="@string/title_activity_material_theme_demo"
+            android:theme="@style/Theme.JetpackComposeDemos">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".unit3.ScrollableListGridDemo"
+            android:exported="true"
+            android:label="@string/title_activity_scrollable_grid_demo"
+            android:theme="@style/Theme.JetpackComposeDemos">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".unit3.ScrollableGridDemo"
+            android:exported="true"
+            android:label="@string/title_activity_scrollable_grid_demo"
+            android:theme="@style/Theme.JetpackComposeDemos">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".unit3.ScrollableListDemo"
+            android:exported="true"
+            android:label="@string/title_activity_scrollable_list_demo"
+            android:theme="@style/Theme.JetpackComposeDemos">
+
+            <!--
+              <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+              </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".unit2.CalculateCustomTipActivity"
+            android:exported="true"
+            android:label="@string/title_activity_calculate_custom_tip"
+            android:theme="@style/Theme.JetpackComposeDemos" />
+        <activity
+            android:name=".unit2.TipTime"
+            android:exported="true"
+            android:label="@string/title_activity_tip_time"
+            android:theme="@style/Theme.JetpackComposeDemos" />
+        <activity
             android:name=".unit2.PracticeClickBehavior"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_practice_click_behavior"
             android:theme="@style/Theme.JetpackComposeDemos" />
         <activity
@@ -26,13 +86,7 @@
             android:name=".unit1.BusinessCardApp"
             android:exported="true"
             android:label="@string/title_activity_business_card_app"
-            android:theme="@style/Theme.JetpackComposeDemos">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.JetpackComposeDemos" />
         <activity
             android:name=".unit1.ComposeQuadrant"
             android:exported="true"
@@ -56,7 +110,6 @@
         <activity
             android:name=".unit1.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.JetpackComposeDemos" />
     </application>
 
