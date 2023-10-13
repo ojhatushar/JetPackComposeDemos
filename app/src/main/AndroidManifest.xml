@@ -13,9 +13,31 @@
         android:theme="@style/Theme.JetpackComposeDemos"
         tools:targetApi="31">
         <activity
-            android:name=".unit3.MaterialThemeDemo"
+            android:name=".unit4.ArchCompUnscrambleDemo"
             android:exported="true"
-            android:label="@string/title_activity_material_theme_demo"
+            android:label="@string/title_activity_arch_comp_unscramble_demo"
+            android:theme="@style/Theme.JetpackComposeDemos" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".unit4.ArchitectureCompDemo"
+            android:exported="true"
+            android:label="@string/title_activity_architecture_comp_demo"
+            android:theme="@style/Theme.JetpackComposeDemos">
+          <!--  <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".superheroapp.SuperHeroApp"
+            android:exported="true"
+            android:label="@string/title_activity_super_hero_app"
             android:theme="@style/Theme.JetpackComposeDemos">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,15 +46,32 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".unit3.MaterialThemeDemo"
+            android:exported="true"
+            android:label="@string/title_activity_material_theme_demo"
+            android:theme="@style/Theme.JetpackComposeDemos">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
             android:name=".unit3.ScrollableListGridDemo"
             android:exported="true"
             android:label="@string/title_activity_scrollable_grid_demo"
             android:theme="@style/Theme.JetpackComposeDemos">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".unit3.ScrollableGridDemo"
@@ -103,7 +142,7 @@
             android:label="@string/title_activity_compose_article"
             android:theme="@style/Theme.JetpackComposeDemos" />
         <activity
-            android:name=".MyActivity"
+            android:name=".components.MyActivity"
             android:exported="true"
             android:label="@string/title_activity_my"
             android:theme="@style/Theme.JetpackComposeDemos" />
