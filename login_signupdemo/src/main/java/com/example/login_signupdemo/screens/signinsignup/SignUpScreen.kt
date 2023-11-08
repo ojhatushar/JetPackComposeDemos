@@ -1,5 +1,7 @@
 package com.example.login_signupdemo.screens.signinsignup
 
+import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,8 +38,10 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -55,11 +59,15 @@ import com.example.login_signupdemo.components.TextFieldComponent
 import com.example.login_signupdemo.ui.theme.JetpackComposeDemosTheme
 
 @Composable
-fun SignUpScreen(onBackButtonClicked: () -> Unit, onLoginTextClicked: () -> Unit) {
+fun SignUpScreen(
+    isRegister: Boolean,
+    onBackButtonClicked: () -> Unit,
+    onLoginTextClicked: () -> Unit
+) {
 
     Column {
-        TopUi(onBackButtonClicked)
-        SignUpField()
+        TopUi(isRegister, onBackButtonClicked)
+        SignUpField(isRegister)
         OtherSignUpOptions(onLoginTextClicked)
 
     }
@@ -67,7 +75,7 @@ fun SignUpScreen(onBackButtonClicked: () -> Unit, onLoginTextClicked: () -> Unit
 
 
 @Composable
-private fun TopUi(onBackButtonClicked: () -> Unit) {
+private fun TopUi(isRegister: Boolean, onBackButtonClicked: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -87,8 +95,9 @@ private fun TopUi(onBackButtonClicked: () -> Unit) {
         )
 
         TextComponent(
-            text = "Register",
-            fontSize = 40.sp,
+            text = if (isRegister) stringResource(R.string.tv_register) else stringResource(R.string.tv_login),
+            //text = stringResource(R.string.tv_register),
+            fontSize = 30.sp,
             color = Color(0xFF347243),
             fontWeight = FontWeight.Medium,
             modifier = Modifier
@@ -105,14 +114,16 @@ private fun TopUi(onBackButtonClicked: () -> Unit) {
                 //  .height(dimensionResource(id = R.dimen.image_size_height))
                 //  .aspectRatio(2f)
                 .align(Alignment.TopEnd)
-                .offset(x = 40.dp, y = 20.dp)
+                .offset(x = 40.dp, y = 25.dp)
                 .padding(top = 40.dp)
                 .rotate(310f)
 
 
         )
         TextComponent(
-            text = "Create your new account",
+            text = if (isRegister) stringResource(R.string.tv_create_your_new_account) else stringResource(
+                R.string.tv_login_to_account
+            ),
             fontSize = 18.sp,
             color = Color.Gray,
             fontWeight = FontWeight.Medium,
@@ -125,27 +136,30 @@ private fun TopUi(onBackButtonClicked: () -> Unit) {
 }
 
 @Composable
-private fun SignUpField() {
+private fun SignUpField(isRegister: Boolean) {
     var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
-    TextFieldComponent(
-        label = R.string.tv_full_name,
-        leadingIcon = R.drawable.ic_name,
-        value = fullName,
-        onValueChange = {
-            fullName = it
-        },
-        keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Text,
-            imeAction = ImeAction.Next
-        ),
-        onKeyboardDone = {
+    if (isRegister) {
+        TextFieldComponent(
+            label = R.string.tv_full_name,
+            leadingIcon = R.drawable.ic_name,
+            value = fullName,
+            onValueChange = {
+                fullName = it
+            },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+            ),
+            onKeyboardDone = {
 
-        },
-    )
+            },
+        )
+    }
 
     TextFieldComponent(
         label = R.string.tv_email,
@@ -210,14 +224,27 @@ private fun SignUpField() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp, horizontal = 20.dp),
-        onClick = {},
+        onClick = {
+            validateSignUp(
+                isRegister = isRegister,
+                fullName = fullName, email = email, password = password,
+                onInvalidate = {
+                    val invalidatedValue = context.getString(it)
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.value_is_empty, invalidatedValue),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            )
+        },
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFF347243),
             contentColor = Color.White
         ), contentPadding = PaddingValues(12.dp)
     ) {
         Text(
-            text = "Register",
+            text = stringResource(R.string.tv_register),
             fontSize = 16.sp
         )
     }
@@ -227,7 +254,7 @@ private fun SignUpField() {
             .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround
     ) {
         TextComponent(
-            text = "Remember Me",
+            text = stringResource(R.string.tv_remember_me),
             fontSize = 12.sp,
             color = Color.Gray,
             fontWeight = FontWeight.Medium,
@@ -265,7 +292,7 @@ private fun OtherSignUpOptions(onLoginTextClicked: () -> Unit) {
 
             )
             TextComponent(
-                text = "Or Continue with",
+                text = stringResource(R.string.tv_or_continue_with),
                 fontSize = 15.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.Medium,
@@ -326,7 +353,7 @@ private fun OtherSignUpOptions(onLoginTextClicked: () -> Unit) {
             modifier = Modifier.weight(1f)
         ) {
             TextComponent(
-                text = "Already have an account ?",
+                text = stringResource(R.string.tv_already_have_an_account),
                 fontSize = 16.sp,
                 color = Color.Gray,
                 fontWeight = FontWeight.Medium,
@@ -344,11 +371,35 @@ private fun OtherSignUpOptions(onLoginTextClicked: () -> Unit) {
     }
 }
 
+
+private fun validateSignUp(
+    isRegister: Boolean,
+    fullName: String,
+    email: String,
+    password: String,
+    onInvalidate: (Int) -> Unit
+) {
+    if (isRegister && fullName.isEmpty()) {
+        onInvalidate(R.string.validate_full_name)
+        return
+    }
+
+    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        onInvalidate(R.string.validate_email)
+        return
+    }
+
+    if (password.isEmpty()) {
+        onInvalidate(R.string.validate_password)
+        return
+    }
+}
+
 @Preview(showSystemUi = true, device = "id:pixel_3a")
 @Composable
 fun PreviewSignUp() {
     JetpackComposeDemosTheme {
-        SignUpScreen(onBackButtonClicked = {},
-            onLoginTextClicked = {})
+        SignUpScreen(false, onBackButtonClicked = {}
+        ) {}
     }
 }

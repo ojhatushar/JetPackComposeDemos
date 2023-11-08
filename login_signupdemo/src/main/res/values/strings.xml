@@ -6,5 +6,16 @@
     <string name="tv_password">Password</string>
 
     <string name="login">Login</string>
-    <string name="register">Register</string>
+    <string name="tv_login">Welcome Back</string>
+    <string name="tv_register">Register</string>
+    <string name="tv_create_your_new_account">Create your new account</string>
+    <string name="tv_remember_me">Remember Me</string>
+    <string name="tv_or_continue_with">Or Continue with</string>
+    <string name="tv_already_have_an_account">Already have an account ?</string>
+    <string name="tv_login_to_account">Login to your account</string>
+
+    <string name="value_is_empty">Please Enter %s</string>
+    <string name="validate_full_name">Full Name</string>
+    <string name="validate_email">Valid Email Address</string>
+    <string name="validate_password">Valid Password</string>
 </resources>

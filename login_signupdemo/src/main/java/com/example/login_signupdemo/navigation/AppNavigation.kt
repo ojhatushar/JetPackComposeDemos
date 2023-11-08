@@ -31,57 +31,65 @@ fun EcommerceApp() {
     NavHost(navController = navController, startDestination = EcommerceScreen.Splash.route) {
         composable(route = EcommerceScreen.Splash.route) {
             SplashScreen(
-                onSignInButtonClicked = { navController.navigate(EcommerceScreen.Home.route + "/Test@test.com") },
-                onRegisterTextClicked = { navController.navigate(EcommerceScreen.Register.route) }
+                //onSignInButtonClicked = { navController.navigate(EcommerceScreen.Home.route + "/Test@test.com") },
+                onSignInButtonClicked = { navController.navigate(EcommerceScreen.Register.route + "/" + false) },
+                onRegisterTextClicked = { navController.navigate(EcommerceScreen.Register.route + "/" + true) }
             )
         }
-
-        composable(route = EcommerceScreen.Register.route) {
-            SignUpScreen(onBackButtonClicked = {
-                navController.navigateUp()
-
-                /* navController.popBackStack(
-                     EcommerceScreen.Splash.name,
-                     inclusive = false
-                 )*/
-
-            },
-                onLoginTextClicked = {
-                    navController.navigateUp()
-
-                    /* navController.navigate(EcommerceScreen.Splash.name) {
-
-                          navController.popBackStack(
-                              EcommerceScreen.Splash.name,
-                              inclusive = true
-                          )
-
-                         popUpTo(navController.graph.id) {
-                             inclusive = true
-                         }
-                     }*/
-                }
-
-            )
-        }
-        /*composable(route = EcommerceScreen.Home.route + "/{email}") {
-            val email = it.arguments?.getString("email")
-            if (email != null) {
-                HomeScreen(email)
-            }
-        }*/
 
         composable(
-            route = EcommerceScreen.Home.route + "/{email}",
-            arguments = listOf(navArgument(name = "email") {
-                type = NavType.StringType
+            route = EcommerceScreen.Register.route + "/{isRegister}",
+            arguments = listOf(navArgument(name = "isRegister") {
+                type = NavType.BoolType
+
             })
         ) {
+            SignUpScreen(
+                isRegister = it.arguments?.getBoolean("isRegister")!!,
+                onBackButtonClicked = {
+                    navController.navigateUp()
+
+                    /* navController.popBackStack(
+                         EcommerceScreen.Splash.name,
+                         inclusive = false
+                     )*/
+
+                }
+
+            ) {
+                navController.navigateUp()
+
+                /* navController.navigate(EcommerceScreen.Splash.name) {
+
+                      navController.popBackStack(
+                          EcommerceScreen.Splash.name,
+                          inclusive = true
+                      )
+
+                     popUpTo(navController.graph.id) {
+                         inclusive = true
+                     }
+                 }*/
+            }
+        }
+        composable(route = EcommerceScreen.Home.route + "/{email}") {
             val email = it.arguments?.getString("email")
             if (email != null) {
                 HomeScreen(email)
             }
         }
+
+        /* composable(
+             route = EcommerceScreen.Home.route + "/{email}",
+             arguments = listOf(navArgument(name = "email") {
+                 type = NavType.StringType
+             })
+         ) {
+             val email = it.arguments?.getString("email")
+             if (email != null) {
+                 HomeScreen(email)
+             }
+         }*/
     }
 
 }
