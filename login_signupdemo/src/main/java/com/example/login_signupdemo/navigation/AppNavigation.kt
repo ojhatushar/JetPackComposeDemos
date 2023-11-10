@@ -50,27 +50,13 @@ fun EcommerceApp() {
                     navController.navigateUp()
 
                     /* navController.popBackStack(
-                         EcommerceScreen.Splash.name,
-                         inclusive = false
-                     )*/
+                                     EcommerceScreen.Splash.name,
+                                     inclusive = false
+                                 )*/
 
-                }
+                }, onLoginTextClicked = navController::navigateUp, onValidate = {
 
-            ) {
-                navController.navigateUp()
-
-                /* navController.navigate(EcommerceScreen.Splash.name) {
-
-                      navController.popBackStack(
-                          EcommerceScreen.Splash.name,
-                          inclusive = true
-                      )
-
-                     popUpTo(navController.graph.id) {
-                         inclusive = true
-                     }
-                 }*/
-            }
+                })
         }
         composable(route = EcommerceScreen.Home.route + "/{email}") {
             val email = it.arguments?.getString("email")

@@ -62,12 +62,13 @@ import com.example.login_signupdemo.ui.theme.JetpackComposeDemosTheme
 fun SignUpScreen(
     isRegister: Boolean,
     onBackButtonClicked: () -> Unit,
-    onLoginTextClicked: () -> Unit
+    onLoginTextClicked: () -> Unit,
+    onValidate: (String) -> Unit
 ) {
 
     Column {
         TopUi(isRegister, onBackButtonClicked)
-        SignUpField(isRegister)
+        SignUpField(isRegister,onValidate)
         OtherSignUpOptions(onLoginTextClicked)
 
     }
@@ -136,7 +137,7 @@ private fun TopUi(isRegister: Boolean, onBackButtonClicked: () -> Unit) {
 }
 
 @Composable
-private fun SignUpField(isRegister: Boolean) {
+private fun SignUpField(isRegister: Boolean,onValidate: (String) -> Unit) {
     var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -235,7 +236,10 @@ private fun SignUpField(isRegister: Boolean) {
                         context.getString(R.string.value_is_empty, invalidatedValue),
                         Toast.LENGTH_LONG
                     ).show()
-                }
+                },
+                onValidate = onValidate
+
+
             )
         },
         colors = ButtonDefaults.buttonColors(
@@ -377,7 +381,8 @@ private fun validateSignUp(
     fullName: String,
     email: String,
     password: String,
-    onInvalidate: (Int) -> Unit
+    onInvalidate: (Int) -> Unit,
+    onValidate: (String) -> Unit
 ) {
     if (isRegister && fullName.isEmpty()) {
         onInvalidate(R.string.validate_full_name)
@@ -393,13 +398,15 @@ private fun validateSignUp(
         onInvalidate(R.string.validate_password)
         return
     }
+
+    onValidate("Test@gmail.com")
 }
 
 @Preview(showSystemUi = true, device = "id:pixel_3a")
 @Composable
 fun PreviewSignUp() {
     JetpackComposeDemosTheme {
-        SignUpScreen(false, onBackButtonClicked = {}
-        ) {}
+       /* SignUpScreen(false, onBackButtonClicked = {}
+        ) {}*/
     }
 }

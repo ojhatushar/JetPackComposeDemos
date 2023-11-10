@@ -12,7 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
-import com.example.login_signupdemo.navigation.EcommerceApp
+import com.example.login_signupdemo.navigationapp.DemoAppMain
 import com.example.login_signupdemo.ui.theme.JetpackComposeDemosTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +29,9 @@ class MainActivity : ComponentActivity() {
                    //  SplashScreen()
                     //  LoginScreen()
                    // SignUpScreen()
-                    EcommerceApp()
+                    //EcommerceApp()
+                    DemoAppMain()
+
                 }
             }
         }
