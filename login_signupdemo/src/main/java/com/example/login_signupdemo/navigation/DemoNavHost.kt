@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.example.login_signupdemo.navigationapp.DemoAppState
 import com.example.login_signupdemo.screens.calender.navigation.calenderScreen
 import com.example.login_signupdemo.screens.signinsignup.navigation.navigateToRegister
 import com.example.login_signupdemo.screens.signinsignup.navigation.signUpScreen
@@ -16,9 +17,10 @@ import com.example.login_signupdemo.screens.splash.navigation.splashScreen
 @Composable
 fun DemoNavHost(
     bottomBarVisibility: MutableState<Boolean>,
-    navController: NavHostController = rememberNavController(),
+    appState: DemoAppState,
     startDestination: String = splashRoute
 ) {
+    val navController = appState.navController
     NavHost(navController = navController, startDestination = startDestination) {
         splashScreen(
             bottomBarVisibility,

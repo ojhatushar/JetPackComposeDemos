@@ -32,23 +32,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.login_signupdemo.components.NavigationBarMain
 import com.example.login_signupdemo.components.NavigationItem
-import com.example.login_signupdemo.navigation.DemoAppTopLevelNavigation
 import com.example.login_signupdemo.navigation.DemoNavHost
-import com.example.login_signupdemo.navigation.TOP_LEVEL_DESTINATIONS
 import com.example.login_signupdemo.navigation.TopLevelDestination
 
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun DemoAppMain() {
-    //Create NavController
-    val navController = rememberNavController()
-    val doseTopLevelNavigation = remember(navController) {
-        DemoAppTopLevelNavigation(navController)
-    }
-    // Get current back stack entry
-    val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = backStackEntry?.destination
+fun DemoAppMain(appState: DemoAppState = rememberNiaAppState()) {
 
     val bottomBarVisibility = rememberSaveable { (mutableStateOf(true)) }
 
@@ -60,15 +50,19 @@ fun DemoAppMain() {
         containerColor = Color.Transparent,
         contentColor = MaterialTheme.colorScheme.onBackground,
         bottomBar = {
-            AnimatedVisibility(
-                visible = bottomBarVisibility.value,
-                enter = slideInVertically(initialOffsetY = { it }),
-                exit = slideOutVertically(targetOffsetY = { it }),
-            ) {
-                BottomBar(
-                    onNavigateToTopLevelDestination = doseTopLevelNavigation::navigateTo,
-                    currentDestination = currentDestination
-                )
+            val destination = appState.currentTopLevelDestination
+            if (destination != null) {
+                AnimatedVisibility(
+                    visible = bottomBarVisibility.value,
+                    enter = slideInVertically(initialOffsetY = { it }),
+                    exit = slideOutVertically(targetOffsetY = { it }),
+                ) {
+                    BottomBar(
+                        destinations = appState.topLevelDestinations,
+                        onNavigateToTopLevelDestination = appState::navigateTo,
+                        currentDestination = appState.currentDestination
+                    )
+                }
             }
 
         }
@@ -85,30 +79,31 @@ fun DemoAppMain() {
                     ),
                 ),
         ) {
-            DemoNavHost(navController = navController,  bottomBarVisibility = bottomBarVisibility)
+            DemoNavHost(appState = appState, bottomBarVisibility = bottomBarVisibility)
         }
     }
 }
 
 @Composable
 fun BottomBar(
-    onNavigateToTopLevelDestination: (String) -> Unit,
+    destinations: List<TopLevelDestination>,
+    onNavigateToTopLevelDestination: (TopLevelDestination) -> Unit,
     currentDestination: NavDestination?
 ) {
     NavigationBarMain(modifier = Modifier) {
 
-        TOP_LEVEL_DESTINATIONS.forEach { destination ->
-           /* val selected =
-                currentDestination?.hierarchy?.any { it.route == destination.route } == true*/
+        destinations.forEach { destination ->
+            /* val selected =
+                 currentDestination?.hierarchy?.any { it.route == destination.route } == true*/
 
             val selected =
                 currentDestination?.hierarchy?.any {
-                    it.route?.contains(destination.route, true) ?: false
+                    it.route?.contains(destination.name, true) ?: false
                 } ?: false
 
             NavigationItem(
                 selected = selected,
-                onClick = { onNavigateToTopLevelDestination(destination.route) },
+                onClick = { onNavigateToTopLevelDestination(destination) },
                 icon = {
                     Icon(
                         if (selected) {

@@ -68,7 +68,7 @@ fun SignUpScreen(
 
     Column {
         TopUi(isRegister, onBackButtonClicked)
-        SignUpField(isRegister,onValidate)
+        SignUpField(isRegister, onValidate)
         OtherSignUpOptions(onLoginTextClicked)
 
     }
@@ -137,7 +137,7 @@ private fun TopUi(isRegister: Boolean, onBackButtonClicked: () -> Unit) {
 }
 
 @Composable
-private fun SignUpField(isRegister: Boolean,onValidate: (String) -> Unit) {
+private fun SignUpField(isRegister: Boolean, onValidate: (String) -> Unit) {
     var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -278,7 +278,6 @@ private fun SignUpField(isRegister: Boolean,onValidate: (String) -> Unit) {
 @Composable
 private fun OtherSignUpOptions(onLoginTextClicked: () -> Unit) {
     Column(
-        modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
@@ -406,7 +405,7 @@ private fun validateSignUp(
 @Composable
 fun PreviewSignUp() {
     JetpackComposeDemosTheme {
-       /* SignUpScreen(false, onBackButtonClicked = {}
-        ) {}*/
+        SignUpScreen(false, onBackButtonClicked = {}, onLoginTextClicked = {}
+        ) {}
     }
 }

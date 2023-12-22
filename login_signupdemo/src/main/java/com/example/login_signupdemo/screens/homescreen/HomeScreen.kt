@@ -32,6 +32,6 @@ fun HomeScreen(email: String) {
 @Composable
 fun PreviewLogin() {
     JetpackComposeDemosTheme {
-        HomeScreen(email = "")
+        HomeScreen(email = "dasdas")
     }
 }

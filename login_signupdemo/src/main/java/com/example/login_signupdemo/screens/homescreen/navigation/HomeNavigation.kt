@@ -6,11 +6,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.example.login_signupdemo.screens.homescreen.HomeScreen
-import com.example.login_signupdemo.screens.signinsignup.navigation.isRegisterArg
-import com.example.login_signupdemo.screens.signinsignup.navigation.signUpRoute
 
 const val homeRoute = "home_route"
 const val emailIdArg = "emailId"
+const val homeRouteBottomNavi="home_route/{$emailIdArg}"
 
 fun NavController.navigateToHome(email:String,navOptions: NavOptions? = null) {
     this.navigate("$homeRoute/$email", navOptions)
